@@ -23,6 +23,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
   
 const server = http.createServer(app);
+
+
 import { Server } from "socket.io";
 const io = new Server(server, {
   cors: {
@@ -39,6 +41,7 @@ app.use(
 );
 
 app.use(express.json());
+
 app.use(cookieParser());
 
 // ======= MULTER SETUP WITH ABSOLUTE UPLOADS PATH =============
@@ -148,11 +151,11 @@ io.on("connection", (socket) => {
   });
 });
 
+ 
 connectDB().then(() => {
   server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
 });
+// module.exports=server
 
-
- 
