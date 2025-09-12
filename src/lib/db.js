@@ -11,3 +11,6 @@ export const connectDB = async () => {
     process.exit(1); // 1 means failure
   }
 };
+
+
+module.exports = connectDB
