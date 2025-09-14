@@ -35,7 +35,7 @@ const io = new Server(server, {
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://streamify-frontend-lm9o.onrender.com",
     credentials: true,
   })
 );
@@ -43,6 +43,7 @@ app.use(
 app.use(express.json());
 
 app.use(cookieParser());
+
 
 // ======= MULTER SETUP WITH ABSOLUTE UPLOADS PATH =============
 // Ensure uploads folder exists at absolute path Backend/uploads
