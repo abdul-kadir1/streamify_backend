@@ -28,7 +28,7 @@ const server = http.createServer(app);
 import { Server } from "socket.io";
 const io = new Server(server, {
   cors: {
-    origin:"https://streamify-frontend-6qmi.onrender.com",
+    origin:"https://streamify-frontend-lm9o.onrender.com",
     credentials: true,
   },
 });
