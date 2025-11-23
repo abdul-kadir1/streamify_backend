@@ -10,7 +10,7 @@ import authRoutes from "./src/routes/auth.route.js";
 import userRoutes from "./src/routes/user.route.js";
 import chatRoutes from "./src/routes/chat.route.js";
 import chatbotRoutes from "./src/routes/chatbot.route.js";
-import globalChatRoutes from "./src/routes/globalChat.route.js";
+import globalChatRoutes from "./src/routes/globalChat.route.js"; 
 import { connectDB } from "./src/lib/db.js";
 import Message from "./src/models/Message.js";
 import multer from "multer";
@@ -28,14 +28,16 @@ const server = http.createServer(app);
 import { Server } from "socket.io";
 const io = new Server(server, {
   cors: {
-    origin:"https://streamify-frontend-lm9o.onrender.com",
+    // origin:"https://streamify-frontend-lm9o.onrender.com",
+    origin:"http://localhost:5173",
     credentials: true,
   },
 });
 
 app.use(
   cors({
-    origin: "https://streamify-frontend-lm9o.onrender.com",
+    // origin: "https://streamify-frontend-lm9o.onrender.com",
+    origin:"http://localhost:5173",
     credentials: true,
   })
 );
@@ -47,6 +49,7 @@ app.use(cookieParser());
 
 // ======= MULTER SETUP WITH ABSOLUTE UPLOADS PATH =============
 // Ensure uploads folder exists at absolute path Backend/uploads
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, "uploads")); // absolute path to 'uploads' folder
@@ -103,17 +106,17 @@ app.post(
   }
 );
 
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname, "../frontend/dist")));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-//   });
-// }
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
+}
 
 // ========== SOCKET.IO EVENTS ================
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
+  console.log("User connected:", socket.id); 
 
   socket.on("typing", (username) => {
     socket.broadcast.emit("typing", username);

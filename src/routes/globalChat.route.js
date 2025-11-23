@@ -66,13 +66,15 @@ router.post(
       }
       const fileUrl = `/uploads/${req.file.filename}`;
       const newMessage = new Message({
-        userId: req.body.userId,
-        username: req.body.username,
-        text: req.body.text || "",
-        attachmentUrl: fileUrl,
-        attachmentType: req.file.mimetype,
-        createdAt: new Date(),
-      });
+  userId: req.body.userId,
+  username: req.body.username,
+  text: req.body.text || "",
+  attachmentUrl: fileUrl,
+  attachmentType: req.file.mimetype,
+  attachmentName: req.file.originalname,  // Adding original file name  
+  createdAt: new Date(),
+});
+
       const savedMessage = await newMessage.save();
       res.status(201).json(savedMessage);
     } catch (error) {
