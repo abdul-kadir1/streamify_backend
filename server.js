@@ -90,6 +90,7 @@ app.post(
         text: req.body.text || "",
         attachmentUrl: fileUrl,
         attachmentType: req.file.mimetype,
+        attachmentName: req.file.originalname,
         createdAt: new Date(),
       });
 
