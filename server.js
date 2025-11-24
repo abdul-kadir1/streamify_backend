@@ -9,6 +9,8 @@ import userRoutes from "./src/routes/user.route.js";
 import chatRoutes from "./src/routes/chat.route.js";
 import chatbotRoutes from "./src/routes/chatbot.route.js";
 import { connectDB } from "./src/lib/db.js";
+import { chatWithBot  } from "./src/controllers/chatbot.controller.js";
+
 
 
 const app = express();
@@ -25,6 +27,8 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.post("/chatbot", chatWithBot );
 
 // ================= ROUTES ========================
 app.use("/api/auth", authRoutes);
